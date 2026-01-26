@@ -1,7 +1,5 @@
 package com.example.trackercaloriesapp.presentation.onboarding.components
 
-import android.view.View
-import android.widget.Button
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -14,9 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
-import com.example.trackercaloriesapp.presentation.onboarding.components.ActinButton
+
 @Composable
-fun ActinButton(
+fun ActionButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -43,6 +41,6 @@ fun ActinButton(
 @Composable
 private fun ActionButtonScreen() {
     PlatziCaloriesTheme {
-        ActinButton(text = "Siguiente", onClick = {}, modifier = Modifier, isEnabled = true, textStyle = MaterialTheme.typography.titleSmall)
+        ActionButton(text = "Siguiente", onClick = {}, modifier = Modifier, isEnabled = true, textStyle = MaterialTheme.typography.titleSmall)
     }
 }

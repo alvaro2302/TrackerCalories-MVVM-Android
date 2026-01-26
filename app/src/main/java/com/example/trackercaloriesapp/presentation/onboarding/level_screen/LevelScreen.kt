@@ -1,4 +1,4 @@
-package com.example.trackercaloriesapp.presentation.onboarding.gender_screen
+package com.example.trackercaloriesapp.presentation.onboarding.level_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,35 +21,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 import com.example.trackercaloriesapp.R
-import com.example.trackercaloriesapp.presentation.onboarding.components.SelectableButton
 import com.example.trackercaloriesapp.presentation.onboarding.components.ActionButton
+import com.example.trackercaloriesapp.presentation.onboarding.components.SelectableButton
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
 
 @Composable
-fun GenderScreen(
-    onNextClick: () -> Unit,
+fun LevelScreen(
+    onNextClick : () -> Unit
 ) {
-    val spacing  = LocalSpacing.current
+    val spacing = LocalSpacing.current
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(spacing.spaceLarge)
+
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        )  {
+        ) {
             Text(
-                    text = stringResource(R.string.whats_your_age),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.titleSmall,
+                text = stringResource(R.string.whats_your_activity_level),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodySmall,
+
             )
-            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
             Row {
                 SelectableButton(
-                    text = stringResource(R.string.male),
+                    text = stringResource(R.string.low),
                     isSelected = true,
                     color = MaterialTheme.colorScheme.primary,
                     selectedTextColor = Color.White,
@@ -57,12 +59,10 @@ fun GenderScreen(
                     textStyle = MaterialTheme.typography.titleSmall.copy(
                         fontWeight = FontWeight.Normal
                     )
-
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
-
                 SelectableButton(
-                    text = stringResource(R.string.female),
+                    text = stringResource(R.string.medium),
                     isSelected = false,
                     color = MaterialTheme.colorScheme.primary,
                     selectedTextColor = Color.White,
@@ -70,12 +70,10 @@ fun GenderScreen(
                     textStyle = MaterialTheme.typography.titleSmall.copy(
                         fontWeight = FontWeight.Normal
                     )
-
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
-
                 SelectableButton(
-                    text = stringResource(R.string.other),
+                    text = stringResource(R.string.high),
                     isSelected = false,
                     color = MaterialTheme.colorScheme.primary,
                     selectedTextColor = Color.White,
@@ -83,8 +81,9 @@ fun GenderScreen(
                     textStyle = MaterialTheme.typography.titleSmall.copy(
                         fontWeight = FontWeight.Normal
                     )
-
                 )
+
+
             }
 
         }
@@ -97,13 +96,10 @@ fun GenderScreen(
 
 }
 
-
 @Preview
 @Composable
-private fun previewGenderScreenPreview() {
-
+private fun LevelScreenPreview(){
     PlatziCaloriesTheme {
-        GenderScreen(onNextClick = {})
+        LevelScreen(onNextClick = {})
     }
-
 }
