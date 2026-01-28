@@ -4,10 +4,16 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-object WelcomeScreenRoute
-
-@Serializable
 object GenderScreenRoute
 
 @Serializable
-object AgeScreenRoute
+object HeightScreenRoute
+
+@Serializable
+object GoalScreenRoute
+
+@Serializable
+object LevelScreenRoute
+
+@Serializable
+object NutrientScreenRoute
