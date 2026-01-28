@@ -30,7 +30,7 @@ fun HeightScreen(onNextClick: () -> Unit){
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(spacing.spaceSmall)
+            .padding(spacing.spaceLarge)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

@@ -23,7 +23,7 @@ import com.example.trackercaloriesapp.presentation.onboarding.components.ActionB
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
 
 @Composable
-fun NutrientGoalScreen(onNextClick : () -> Unit) {
+fun NutrientGoalScreen() {
  val spacing = LocalSpacing.current
     Box(
         modifier = Modifier
@@ -89,7 +89,7 @@ fun NutrientGoalScreen(onNextClick : () -> Unit) {
 
         ActionButton(
             text = stringResource(R.string.next),
-            onClick = {onNextClick()},
+            onClick = {},
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
@@ -99,6 +99,6 @@ fun NutrientGoalScreen(onNextClick : () -> Unit) {
 @Composable
 fun NutrientGoalScreenPreview() {
     PlatziCaloriesTheme {
-        NutrientGoalScreen(onNextClick = {})
+        NutrientGoalScreen()
     }
 }
