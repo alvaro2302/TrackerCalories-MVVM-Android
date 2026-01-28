@@ -11,13 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.trackercaloriesapp.core.navigation.NavigationRoot
+import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Greeting(name = "Hi", modifier = Modifier)
+            PlatziCaloriesTheme {
+                val navController = rememberNavController()
+                NavigationRoot(navHostController = navController)
+            }
         }
     }
 }
