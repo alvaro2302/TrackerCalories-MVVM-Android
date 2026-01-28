@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.trackercaloriesapp.presentation.onboarding.gender_screen.GenderScreen
+import com.example.trackercaloriesapp.presentation.onboarding.gender_screen.GenderViewModel
 import com.example.trackercaloriesapp.presentation.onboarding.goal_screen.GoalScreen
 import com.example.trackercaloriesapp.presentation.onboarding.height_screen.HeightScreen
 import com.example.trackercaloriesapp.presentation.onboarding.level_screen.LevelScreen
@@ -26,9 +27,9 @@ fun NavigationRoot(
             startDestination = GenderScreenRoute
         ) {
             composable<GenderScreenRoute> {
-                GenderScreen {
+                GenderScreen(onNextClick = {
                     navHostController.navigate(HeightScreenRoute)
-                }
+                }, genderViewModel = GenderViewModel())
             }
             composable<HeightScreenRoute> {
                 HeightScreen {
