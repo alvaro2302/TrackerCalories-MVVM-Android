@@ -29,11 +29,11 @@ import com.example.trackercaloriesapp.core.domain.util.UIEvent
 import com.example.trackercaloriesapp.presentation.onboarding.components.SelectableButton
 import com.example.trackercaloriesapp.presentation.onboarding.components.ActionButton
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
-
+import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun GenderScreen(
     onNextClick: () -> Unit,
-    genderViewModel: GenderViewModel = viewModel()
+    genderViewModel: GenderViewModel = hiltViewModel()
 ) {
     val spacing  = LocalSpacing.current
 

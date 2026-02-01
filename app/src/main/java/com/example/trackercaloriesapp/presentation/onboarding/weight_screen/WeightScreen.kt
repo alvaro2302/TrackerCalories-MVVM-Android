@@ -1,4 +1,4 @@
-package com.example.trackercaloriesapp.presentation.onboarding.age_screen
+package com.example.trackercaloriesapp.presentation.onboarding.weight_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.trackercaloriesapp.R
 import com.example.trackercaloriesapp.core.domain.util.UIEvent
 import com.example.trackercaloriesapp.presentation.onboarding.components.ActionButton
@@ -26,19 +25,20 @@ import com.example.trackercaloriesapp.presentation.onboarding.components.UnitTex
 import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 
 @Composable
-fun AgeScreen (
-    snackbarState: SnackbarHostState,
-    onNextClick: () -> Unit,
-    ageViewModel: AgeViewModel = hiltViewModel()
+fun WeightScreen(
+    snackBarState: SnackbarHostState,
+    weightViewModel: WeightViewModel = hiltViewModel(),
+    onNextClick: () -> Unit
 ) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-    LaunchedEffect( key1 = true) {
-        ageViewModel.uiEvent.collect { event ->
+
+    LaunchedEffect(key1 = true) {
+        weightViewModel.uiEvent.collect { event ->
             when (event) {
                 is UIEvent.Success -> onNextClick()
                 is UIEvent.ShowSnackbar -> {
-                    snackbarState.showSnackbar(
+                    snackBarState.showSnackbar(
                         message = event.message.asString(context)
                     )
                 }
@@ -46,7 +46,6 @@ fun AgeScreen (
             }
         }
     }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -59,21 +58,22 @@ fun AgeScreen (
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(id = R.string.whats_your_age),
+                text = stringResource(id = R.string.whats_your_weight),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = ageViewModel.age,
-                onValueChange = ageViewModel::onAgeEnter,
-                unit = stringResource(id = R.string.years)
+                value = weightViewModel.weight,
+                onValueChange = weightViewModel::onWeightEnter,
+                unit = stringResource(id = R.string.kg)
             )
         }
         ActionButton(
             text = stringResource(id = R.string.next),
-            onClick = ageViewModel::onNextClick,
+            onClick = weightViewModel::onNextClick,
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
+
 }

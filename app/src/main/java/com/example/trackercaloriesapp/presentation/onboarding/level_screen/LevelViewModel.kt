@@ -1,37 +1,34 @@
-package com.example.trackercaloriesapp.presentation.onboarding.gender_screen
+package com.example.trackercaloriesapp.presentation.onboarding.level_screen
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import com.example.trackercaloriesapp.core.domain.model.Gender
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.trackercaloriesapp.core.domain.model.ActivityLevel
 import com.example.trackercaloriesapp.core.domain.preferences.Preferences
-import com.example.trackercaloriesapp.core.domain.use_case.FilterOutDigits
 import com.example.trackercaloriesapp.core.domain.util.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenderViewModel @Inject constructor(
+class LevelViewModel @Inject constructor(
     private val preferences: Preferences
-): ViewModel(){
-
-    var selectedGender by mutableStateOf<Gender>(Gender.Male)
-        private set
+): ViewModel() {
+    var selectedActivityLevel by mutableStateOf<ActivityLevel>(ActivityLevel.Medium)
+     private set
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-
-    fun onGenderClick(gender: Gender) {
-        selectedGender = gender
+    fun onActivityLevelSelect(activityLevel: ActivityLevel) {
+        selectedActivityLevel = activityLevel
     }
 
     fun onNextClick() {
         viewModelScope.launch {
-            preferences.saveGender(selectedGender)
+            preferences.saveActivityLevel(selectedActivityLevel)
             _uiEvent.send(UIEvent.Success)
         }
     }

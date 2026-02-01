@@ -14,10 +14,16 @@ object AgeScreenRoute
 object HeightScreenRoute
 
 @Serializable
-object GoalScreenRoute
+object WeightScreenRoute
 
 @Serializable
 object LevelScreenRoute
 
 @Serializable
+object GoalScreenRoute
+
+@Serializable
 object NutrientScreenRoute
+
+@Serializable
+object TrackerOverViewRoute

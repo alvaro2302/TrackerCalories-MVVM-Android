@@ -16,13 +16,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.trackercaloriesapp.core.domain.preferences.Preferences
 import com.example.trackercaloriesapp.core.navigation.NavigationRoot
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var preferences: Preferences
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
         enableEdgeToEdge()
         setContent {
             PlatziCaloriesTheme {
@@ -32,7 +39,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
                 ) {
-                    NavigationRoot(navHostController = navController, snack = snackBarHostState)
+                    NavigationRoot(
+                        shouldShowOnboarding = shouldShowOnboarding,
+                        navHostController = navController,
+                        snack = snackBarHostState
+                    )
                 }
             }
         }

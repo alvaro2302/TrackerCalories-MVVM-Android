@@ -1,47 +1,50 @@
-package com.example.trackercaloriesapp.presentation.onboarding.age_screen
+package com.example.trackercaloriesapp.presentation.onboarding.weight_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackercaloriesapp.R
 import com.example.trackercaloriesapp.core.domain.preferences.Preferences
-import com.example.trackercaloriesapp.core.domain.use_case.FilterOutDigits
 import com.example.trackercaloriesapp.core.domain.util.UIEvent
 import com.example.trackercaloriesapp.core.domain.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
-
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AgeViewModel @Inject constructor(
-    private val preferences: Preferences,
-    private val filterOutDigits: FilterOutDigits
+class WeightViewModel @Inject constructor (
+    private val preferences: Preferences
 ): ViewModel() {
-    var age by mutableStateOf("20")
-         private set
+    var  weight by mutableStateOf("80.0")
+        private  set
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-    fun onAgeEnter(age: String) {
-        if(age.length <= 3) {
-            this.age = filterOutDigits(age)
-        }
-    }
-    fun onNextClick() {
-        viewModelScope.launch {
-            val ageNumber = age.toIntOrNull() ?: kotlin.run {
-            _uiEvent.send(
-                UIEvent.ShowSnackbar(UiText.StringResources(R.string.error_age_cant_be_empty))
-            )
-            return@launch
-            }
-            preferences.saveAge(ageNumber)
-            _uiEvent.send(UIEvent.Success)
+    
+    fun onWeightEnter(weight: String) {
+        if(weight.length <= 5) {
+            this.weight = weight
         }
     }
 
+    fun onNextClick() {
+
+        viewModelScope.launch {
+            val weightNumber =  weight.toFloatOrNull() ?: kotlin.run {
+                _uiEvent.send(
+                    UIEvent.ShowSnackbar(
+                        UiText.StringResources(R.string.error_weight_cant_be_empty)
+                    )
+                )
+                return@launch
+            }
+            preferences.saveWeight(weightNumber)
+            _uiEvent.send(UIEvent.Success)
+        }
+
+    }
 }

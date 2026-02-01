@@ -10,21 +10,48 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 import com.example.trackercaloriesapp.R
+import com.example.trackercaloriesapp.core.data.preferences.DefaultPreferences
+import com.example.trackercaloriesapp.core.domain.util.UIEvent
 import com.example.trackercaloriesapp.presentation.onboarding.components.ActionButton
+import com.example.trackercaloriesapp.presentation.onboarding.components.UnitTextField
+import com.example.trackercaloriesapp.presentation.onboarding.level_screen.LevelViewModel
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
 
 @Composable
-fun NutrientGoalScreen() {
- val spacing = LocalSpacing.current
+fun NutrientGoalScreen(
+    snackbarState: SnackbarHostState,
+    onNextClick: () -> Unit,
+    nutrientViewModel: NutrientGoalViewModel = hiltViewModel()
+) {
+    val spacing = LocalSpacing.current
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        nutrientViewModel.uiEvent.collect { event ->
+            when (event) {
+                is UIEvent.Success -> onNextClick()
+                is UIEvent.ShowSnackbar -> {
+                    snackbarState.showSnackbar(
+                        message = event.message.asString(context)
+                    )
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -41,64 +68,50 @@ fun NutrientGoalScreen() {
                 color = MaterialTheme.colorScheme.onSurface,
                 style =  MaterialTheme.typography.bodySmall
             )
-            Spacer(modifier = Modifier.height(spacing.spaceSmall))
-            Row {
-                Text(
-                    text = "40",
-                    color = Color.Black,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Text(
-                    text = "% carbs",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.titleSmall
-
-                )
-            }
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
-            Row {
-                Text(
-                    text = "30",
-                    color = Color.Black,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Text(
-                    text = "% proteinds",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.titleSmall
-
-                )
-            }
+            UnitTextField(
+                value = nutrientViewModel.state.carbsRatio,
+                onValueChange = {
+                    nutrientViewModel.onEvent(NutrientGoalEvent.OnCarbRatioEnter(it))
+                },
+                unit = stringResource(id = R.string.percent_carbs)
+            )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
-            Row {
-                Text(
-                    text = "30",
-                    color = Color.Black,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Text(
-                    text = "% fats",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.titleSmall
-
-                )
-            }
+            UnitTextField(
+                value = nutrientViewModel.state.proteinRatio,
+                onValueChange = {
+                    nutrientViewModel.onEvent(NutrientGoalEvent.OnProteinRatioEnter(it))
+                },
+                unit = stringResource(id = R.string.percent_proteins)
+            )
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            UnitTextField(
+                value = nutrientViewModel.state.fatRatio,
+                onValueChange = {
+                    nutrientViewModel.onEvent(NutrientGoalEvent.OnFatRatioEnter(it))
+                },
+                unit = stringResource(id = R.string.percent_fats)
+            )
 
 
         }
 
         ActionButton(
             text = stringResource(R.string.next),
-            onClick = {},
+            onClick = {
+                nutrientViewModel.onEvent(NutrientGoalEvent.OnNextClick)
+            },
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
 }
-
+/*
 @Preview
 @Composable
 fun NutrientGoalScreenPreview() {
     PlatziCaloriesTheme {
-        NutrientGoalScreen()
+        NutrientGoalScreen( snackbarState= SnackbarHostState(),onNextClick = {}, nutrientViewModel = NutrientGoalViewModel(preferences = DefaultPreferences()))
     }
 }
+
+ */
