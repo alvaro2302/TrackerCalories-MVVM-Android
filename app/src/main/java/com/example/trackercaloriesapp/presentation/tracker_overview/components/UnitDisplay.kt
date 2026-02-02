@@ -18,7 +18,7 @@ import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
 
 @Composable
-fun UnitDiplay(
+fun UnitDisplay(
     amount: Int,
     modifier: Modifier = Modifier,
     unit: String,
@@ -54,6 +54,6 @@ fun UnitDiplay(
 @Composable
 private fun UnitDisplayPreview() {
     PlatziCaloriesTheme {
-        UnitDiplay(amount = 100, unit = "kg")
+        UnitDisplay(amount = 100, unit = "kg")
     }
 }
