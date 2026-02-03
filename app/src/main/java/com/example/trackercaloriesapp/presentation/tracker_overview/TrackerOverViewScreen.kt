@@ -1,17 +1,24 @@
 package com.example.trackercaloriesapp.presentation.tracker_overview
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.trackercaloriesapp.presentation.tracker_overview.components.DaySelector
+import com.example.trackercaloriesapp.presentation.tracker_overview.components.ExpandableMeal
 import com.example.trackercaloriesapp.presentation.tracker_overview.components.NutrientsHeaders
+import com.example.trackercaloriesapp.presentation.tracker_overview.model.defaultMeals
 import com.platzi.android.mvvm.app.ui.theme.LocalSpacing
 import com.platzi.android.mvvm.app.ui.theme.PlatziCaloriesTheme
+import java.time.LocalDate
 
 @Composable
 fun TrackerOverViewScreen(
@@ -26,6 +33,19 @@ fun TrackerOverViewScreen(
             NutrientsHeaders()
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
         }
+        items(defaultMeals){ meal ->
+            ExpandableMeal(
+                meal = meal,
+                onToggleClick = {},
+                content = {
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
+                    ) {}
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+        }
     }
 }
 @Composable
@@ -39,6 +59,26 @@ fun TrackerOverViewScreenTest(
         item {
             NutrientsHeaders()
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            DaySelector(
+                date = LocalDate.now(),
+                onPreviousDayClick = {},
+                onNextDayClick = {},
+                modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
+            )
+
+        }
+        items(defaultMeals){ meal ->
+            ExpandableMeal(
+                meal = meal,
+                onToggleClick = {},
+                content = {
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
+                    ) {}
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+
         }
     }
 
