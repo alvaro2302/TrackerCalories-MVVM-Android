@@ -73,7 +73,7 @@ dependencies {
 
     //Moshi
     implementation(libs.moshi)
-
+    ksp(libs.moshi.codegen)
     // RetroFit
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
