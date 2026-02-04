@@ -22,7 +22,8 @@ import java.time.LocalDate
 
 @Composable
 fun TrackerOverViewScreen(
-    trackerOverViewModel: TrackerOverViewModel = hiltViewModel()
+    navigateToSearchScreen: () -> Unit,
+    trackerOverViewModel: TrackerOverViewModel = hiltViewModel(),
 ) {
     val spacing = LocalSpacing.current
     LazyColumn(
@@ -32,11 +33,19 @@ fun TrackerOverViewScreen(
         item {
             NutrientsHeaders()
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            DaySelector(
+                date = LocalDate.now(),
+                onPreviousDayClick = {},
+                onNextDayClick = {},
+                modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
+            )
         }
         items(defaultMeals){ meal ->
             ExpandableMeal(
                 meal = meal,
-                onToggleClick = {},
+                onToggleClick = {
+                    navigateToSearchScreen()
+                },
                 content = {
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
@@ -70,7 +79,9 @@ fun TrackerOverViewScreenTest(
         items(defaultMeals){ meal ->
             ExpandableMeal(
                 meal = meal,
-                onToggleClick = {},
+                onToggleClick = {
+
+                },
                 content = {
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
