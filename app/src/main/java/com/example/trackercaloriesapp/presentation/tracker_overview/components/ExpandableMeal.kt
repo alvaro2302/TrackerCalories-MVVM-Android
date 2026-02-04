@@ -47,7 +47,7 @@ fun ExpandableMeal(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().clickable {
-
+                onToggleClick()
             }.padding(spacing.spaceMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
