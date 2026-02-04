@@ -23,6 +23,7 @@ import com.example.trackercaloriesapp.presentation.onboarding.height_screen.Heig
 import com.example.trackercaloriesapp.presentation.onboarding.level_screen.LevelScreen
 import com.example.trackercaloriesapp.presentation.onboarding.nutrient_goal_screen.NutrientGoalScreen
 import com.example.trackercaloriesapp.presentation.onboarding.weight_screen.WeightScreen
+import com.example.trackercaloriesapp.presentation.search.SearchScreen
 import com.example.trackercaloriesapp.presentation.tracker_overview.TrackerOverViewScreen
 import kotlin.getValue
 
@@ -80,8 +81,23 @@ fun NavigationRoot(
                 })
             }
             composable<TrackerOverViewRoute> {
-                TrackerOverViewScreen()
+                TrackerOverViewScreen(
+                    navigateToSearchScreen = {
+                        navHostController.navigate(SearchScreenRoute)
+                    }
+                )
             }
+            composable<SearchScreenRoute> {
+                SearchScreen(
+                   snackbarHoststate = snack,
+                   mealName = "meal",
+                    dayOfMonth = 1,
+                    month = 1,
+                    year = 2022,
+                    onNavigateUp = {}
+                )
+            }
+
          }
     }
 }
